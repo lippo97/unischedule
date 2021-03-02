@@ -3,14 +3,15 @@ import time
 import pystray
 import subprocess
 import schedule
+import os
 from os import path
 from PIL import Image
 from lib import load_data
-from cli import COURSES
+from config import COURSES_PATH, ICON_PATH
 from pystray import MenuItem as i, Menu as m
 from threading import Thread
 
-icon_image = Image.open(path.join(path.expanduser('~'), 'workspace', 'unischedule', 'icon.png'))
+icon_image = Image.open(ICON_PATH)
 
 def do_nothing() -> None:
     pass
@@ -26,7 +27,7 @@ def get_submenu(info: dict[str, str]) -> list[i]:
     return [ i('Web page', lambda: open_webpage(v))
              for k, v in info.items() if k in allowed ]
 
-data = load_data(COURSES)
+data = load_data(COURSES_PATH)
 items = [ i(d.describe(), m(*get_submenu(d.course))) for d in data.today().entries ]
 items_or_default = items if len(items) else [i('(empty)', do_nothing)]
 

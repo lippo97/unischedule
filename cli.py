@@ -4,13 +4,13 @@ import fire
 import lib
 import os
 
-COURSES = os.path.join(os.path.expanduser('~'), '.scripts', 'courses.yml')
+from config import COURSES_PATH
 
 def today():
-    return lib.load_data(COURSES).today()
+    return lib.load_data(COURSES_PATH).today()
 
 def day(name):
-    return lib.load_data(COURSES).day(name)
+    return lib.load_data(COURSES_PATH).day(name)
 
 if __name__ == "__main__":
     fire.Fire()
