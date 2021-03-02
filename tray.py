@@ -10,7 +10,7 @@ from cli import COURSES
 from pystray import MenuItem as i, Menu as m
 from threading import Thread
 
-icon_image = Image.open(path.join('.', 'icon.png'))
+icon_image = Image.open(path.join(path.expanduser('~'), 'workspace', 'unischedule', 'icon.png'))
 
 def do_nothing() -> None:
     pass
