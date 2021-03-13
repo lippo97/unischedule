@@ -28,16 +28,17 @@ def get_submenu(info: dict[str, str]) -> list[i]:
              for k, v in info.items() if k in allowed ]
 
 data = load_data(COURSES_PATH)
-items = [ i(d.describe(), m(*get_submenu(d.course))) for d in data.today().entries ]
-items_or_default = items if len(items) else [i('(empty)', do_nothing)]
+items = lambda: [ i(d.describe(), m(*get_submenu(d.course))) for d in data.today().entries ]
+items_or_default = lambda: items() if len(items()) else [i('(empty)', do_nothing)]
 
 tray = pystray.Icon('Unischedule')
 tray.icon = icon_image
 
 def setup(icon):
     icon.menu = (
-        *items_or_default,
+        *items_or_default(),
         m.SEPARATOR,
+        i('Update', lambda: update_icon()),
         i('Quit', quit_app),
     )
     icon.visible = True
