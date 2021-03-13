@@ -2,7 +2,6 @@
 
 import fire
 import lib
-import os
 
 from config import COURSES_PATH
 
